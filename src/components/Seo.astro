@@ -1,0 +1,105 @@
+---
+// SEO meta block — drop this into <head> on every page.
+// Handles title, description, canonical, Open Graph, Twitter, robots, JSON-LD structured data.
+//
+// Per-page props override site defaults. Schemas array accepts any number of JSON-LD blobs.
+
+import { SITE } from '../data/site';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article' | 'profile';
+  noindex?: boolean;
+  schemas?: object[];
+  publishedTime?: string;
+  modifiedTime?: string;
+}
+
+const {
+  title,
+  description = SITE.description,
+  canonical,
+  ogImage = SITE.ogImage,
+  ogType = 'website',
+  noindex = false,
+  schemas = [],
+  publishedTime,
+  modifiedTime,
+} = Astro.props;
+
+const canonicalURL = canonical
+  ? new URL(canonical, SITE.url).href
+  : new URL(Astro.url.pathname, SITE.url).href;
+
+const fullOgImage = ogImage.startsWith('http') ? ogImage : new URL(ogImage, SITE.url).href;
+
+// Always include Organization + WebSite as the root entity graph
+const baseSchemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${SITE.url}#organization`,
+    name: SITE.name,
+    url: SITE.url,
+    description: SITE.description,
+    founder: {
+      '@type': 'Person',
+      name: SITE.founder.name,
+      jobTitle: SITE.founder.jobTitle,
+      email: SITE.founder.email,
+    },
+    sameAs: SITE.founder.sameAs,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE.url}#website`,
+    url: SITE.url,
+    name: SITE.name,
+    description: SITE.description,
+    publisher: { '@id': `${SITE.url}#organization` },
+  },
+  ...schemas,
+];
+---
+
+<!-- Primary -->
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+<meta name="author" content={SITE.founder.name} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+{!noindex && <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />}
+
+<!-- Open Graph -->
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:type" content={ogType} />
+<meta property="og:image" content={fullOgImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+{publishedTime && <meta property="article:published_time" content={publishedTime} />}
+{modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content={SITE.twitterHandle} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={fullOgImage} />
+
+<!-- Structured data (JSON-LD) -->
+{baseSchemas.map((s) => (
+  <script type="application/ld+json" set:html={JSON.stringify(s)} />
+))}
+
+<!-- Misc -->
+<meta name="theme-color" content="#0a0f1a" />
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />

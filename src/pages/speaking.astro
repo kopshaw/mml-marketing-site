@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTASection from '../components/CTASection.astro';
+import { SITE } from '../data/site';
+
+const title = 'Book Steve Kopshaw to Speak | Metric Mentor Labs';
+const description = 'Steve Kopshaw has shared the stage with Alex & Leila Hormozi, Bedros Keuilian, Tom Bilyeu, Ed Mylett, and Nick Santonastasso. Book Steve to deliver a talk on building Rev OS, leadership, and execution.';
+
+const speakers = [
+  'Alex Hormozi',
+  'Leila Hormozi',
+  'Bedros Keuilian',
+  'Tom Bilyeu',
+  'Ed Mylett',
+  'Nick Santonastasso',
+];
+
+const speakerSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${SITE.url}#steve-kopshaw`,
+  name: SITE.founder.name,
+  jobTitle: 'Keynote Speaker, Business Mentor',
+  description: 'Keynote speaker on revenue operations, scaling founder-led businesses, and the F.R.E.E.D.O.M. Framework.',
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Speaking', item: `${SITE.url}/speaking` },
+  ],
+};
+---
+
+<Layout title={title} description={description} schemas={[speakerSchema, breadcrumbSchema]}>
+  <section class="pt-32 pb-16 px-6 md:px-12 max-w-4xl mx-auto">
+    <p class="font-body text-sm tracking-[0.3em] text-primary uppercase mb-3">Speaking</p>
+    <h1 class="text-4xl md:text-6xl font-display text-foreground mb-6">Book Steve to Speak</h1>
+    <p class="font-body text-xl text-muted-foreground leading-relaxed mb-8">
+      Steve brings a humble intensity that&rsquo;s palpable. No screaming, no antics &mdash;
+      only the thoughtful insights of someone who&rsquo;s been operating, advising, and scaling
+      businesses for nearly two decades.
+    </p>
+    <p class="font-body text-base text-foreground/80 leading-relaxed mb-10">
+      Steve has shared stages with some of the most prominent entrepreneurs in the world:
+    </p>
+    <ul class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-12">
+      {speakers.map((s) => (
+        <li class="border border-border rounded-sm px-4 py-3 font-body text-sm text-foreground">{s}</li>
+      ))}
+    </ul>
+
+    <h2 class="text-2xl md:text-3xl font-display text-foreground mb-4">Talk topics</h2>
+    <ul class="space-y-3 mb-10 font-body text-foreground/80">
+      <li>&middot; Installing the Rev OS: turning ambition into repeatable revenue</li>
+      <li>&middot; The F.R.E.E.D.O.M. Framework for founder-led businesses</li>
+      <li>&middot; Closing the strategy-to-execution gap</li>
+      <li>&middot; Building leaders who deliver without you in every decision</li>
+      <li>&middot; Profit per acquisition: removing emotion from growth decisions</li>
+    </ul>
+
+    <a
+      href="/contact"
+      class="inline-block gradient-accent text-primary-foreground font-body text-base font-semibold tracking-wider uppercase px-10 py-4 rounded-sm glow-accent hover:opacity-90 transition-opacity"
+    >
+      Inquire about Steve speaking
+    </a>
+  </section>
+  <CTASection />
+</Layout>

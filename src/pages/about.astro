@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AboutSection from '../components/AboutSection.astro';
+import CTASection from '../components/CTASection.astro';
+import { SITE } from '../data/site';
+
+const title = 'About Steve Kopshaw — Founder of Metric Mentor Labs & Rev OS';
+const description = 'Steve Kopshaw is a serial entrepreneur, business mentor, and the founder of Metric Mentor Labs. He created the Rev OS — the Revenue Playbooks Operating System — and the F.R.E.E.D.O.M. Framework to help entrepreneurs scale with clarity.';
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${SITE.url}#steve-kopshaw`,
+  name: SITE.founder.name,
+  jobTitle: SITE.founder.jobTitle,
+  email: SITE.founder.email,
+  url: `${SITE.url}/about`,
+  description: 'Founder of Metric Mentor Labs. Built the Rev OS — Revenue Playbooks Operating System — and the F.R.E.E.D.O.M. Framework over 20+ years of operating, advising, and scaling founder-led businesses.',
+  knowsAbout: [
+    'Revenue operations',
+    'Business scaling',
+    'Leadership development',
+    'Strategic execution',
+    'Entrepreneurship',
+    'Revenue Playbooks Operating System',
+    'F.R.E.E.D.O.M. Framework',
+  ],
+  worksFor: { '@id': `${SITE.url}#organization` },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'About', item: `${SITE.url}/about` },
+  ],
+};
+---
+
+<Layout title={title} description={description} schemas={[personSchema, breadcrumbSchema]} ogType="profile">
+  <div class="pt-32"></div>
+  <AboutSection showFull={true} />
+  <CTASection />
+</Layout>

@@ -1,0 +1,50 @@
+---
+// Server-rendered navbar. Mobile menu interactivity is in MobileMenu.tsx (React island).
+import MobileMenu from './MobileMenu.tsx';
+import { NAV } from '../data/site';
+---
+
+<nav id="site-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-20">
+    <a href="/" class="flex items-center gap-2">
+      <span class="font-display text-2xl tracking-widest text-foreground">METRIC MENTOR</span>
+      <span class="font-accent text-3xl text-primary">Labs</span>
+    </a>
+
+    <div class="hidden md:flex items-center gap-8">
+      {NAV.map((item) => (
+        <a
+          href={item.href}
+          class="font-body text-sm tracking-wider text-muted-foreground hover:text-primary transition-colors duration-200 uppercase"
+        >
+          {item.label}
+        </a>
+      ))}
+      <a
+        href="/contact"
+        class="gradient-accent text-primary-foreground font-body text-sm font-semibold tracking-wider uppercase px-6 py-2.5 rounded-sm hover:opacity-90 transition-opacity"
+      >
+        Get Started
+      </a>
+    </div>
+
+    <MobileMenu client:load nav={NAV} />
+  </div>
+</nav>
+
+<script>
+  // Add scrolled background to navbar after a few px of scroll
+  const nav = document.getElementById('site-nav');
+  const onScroll = () => {
+    if (!nav) return;
+    if (window.scrollY > 50) {
+      nav.classList.add('bg-background/95', 'backdrop-blur-md', 'border-b', 'border-border');
+      nav.classList.remove('bg-transparent');
+    } else {
+      nav.classList.remove('bg-background/95', 'backdrop-blur-md', 'border-b', 'border-border');
+      nav.classList.add('bg-transparent');
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>

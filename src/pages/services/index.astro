@@ -1,0 +1,36 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ServicesSection from '../../components/ServicesSection.astro';
+import CTASection from '../../components/CTASection.astro';
+import { SITE, SERVICES } from '../../data/site';
+
+const title = 'Services — Rev OS Installation, Leadership, Revenue Growth | Metric Mentor Labs';
+const description = 'Four focused engagements built around the Rev OS: Rev OS Installation, Leadership Development, Revenue Growth Consulting, and Strategic Execution Coaching.';
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: SERVICES.map((s, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: `${SITE.url}/services/${s.slug}`,
+    name: s.title,
+    description: s.description,
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Services', item: `${SITE.url}/services` },
+  ],
+};
+---
+
+<Layout title={title} description={description} schemas={[itemListSchema, breadcrumbSchema]}>
+  <div class="pt-32"></div>
+  <ServicesSection />
+  <CTASection />
+</Layout>

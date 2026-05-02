@@ -1,0 +1,47 @@
+---
+import ContactForm from './ContactForm.tsx';
+import { Mail, Globe, AtSign } from 'lucide-react';
+import { SITE } from '../data/site';
+---
+
+<section id="contact" class="section-padding bg-secondary">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <p class="font-body text-sm tracking-[0.3em] text-primary uppercase mb-3">Get Started</p>
+      <h2 class="text-4xl md:text-6xl font-display text-foreground">
+        Let&rsquo;s <span class="gradient-text">Connect</span>
+      </h2>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
+      <ContactForm client:load />
+
+      <div class="space-y-8">
+        {[
+          { icon: Mail, label: 'Email', value: SITE.founder.email, href: `mailto:${SITE.founder.email}` },
+          { icon: Globe, label: 'Website', value: 'metricmentorlabs.com', href: SITE.url },
+          { icon: AtSign, label: 'Social', value: 'Follow for daily insights', href: '#' },
+        ].map(({ icon: Icon, label, value, href }) => (
+          <a href={href} class="flex items-start gap-4 group">
+            <div class="w-12 h-12 bg-card border border-border rounded-sm flex items-center justify-center shrink-0 group-hover:border-primary/40 transition-colors">
+              <Icon className="w-5 h-5 text-accent" />
+            </div>
+            <div>
+              <p class="font-body text-xs tracking-wider uppercase text-muted-foreground mb-1">{label}</p>
+              <p class="font-body text-foreground">{value}</p>
+            </div>
+          </a>
+        ))}
+
+        <div class="border-t border-border pt-8">
+          <p class="font-body text-xs tracking-wider uppercase text-muted-foreground mb-3">Who This Is For</p>
+          <ul class="space-y-2 font-body text-sm text-foreground/80">
+            <li>Entrepreneurs who know they could be doing more</li>
+            <li>Business owners ready to move faster and execute higher</li>
+            <li>Leaders who want systematic, no-nonsense growth</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

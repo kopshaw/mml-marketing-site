@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import AboutSection from '../components/AboutSection.astro';
+import ServicesSection from '../components/ServicesSection.astro';
+import FrameworkSection from '../components/FrameworkSection.astro';
+import PodcastSection from '../components/PodcastSection.astro';
+import CTASection from '../components/CTASection.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { SITE, SERVICES } from '../data/site';
+
+const title = 'Rev OS — The Revenue Playbooks Operating System | Metric Mentor Labs';
+const description = 'Install Rev OS into your business: the Revenue Playbooks Operating System that helps founder-led companies scale revenue with structure, accountability, and the F.R.E.E.D.O.M. Framework.';
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${SITE.url}#steve-kopshaw`,
+  name: SITE.founder.name,
+  jobTitle: SITE.founder.jobTitle,
+  email: SITE.founder.email,
+  url: SITE.url,
+  sameAs: SITE.founder.sameAs,
+  worksFor: { '@id': `${SITE.url}#organization` },
+  description: 'Serial entrepreneur, business mentor, and creator of the Rev OS — the Revenue Playbooks Operating System.',
+};
+
+const serviceCatalogSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'OfferCatalog',
+  name: 'Metric Mentor Labs Services',
+  itemListElement: SERVICES.map((s, i) => ({
+    '@type': 'Offer',
+    position: i + 1,
+    itemOffered: {
+      '@type': 'Service',
+      name: s.title,
+      description: s.description,
+      url: `${SITE.url}/services/${s.slug}`,
+      provider: { '@id': `${SITE.url}#organization` },
+    },
+  })),
+};
+---
+
+<Layout
+  title={title}
+  description={description}
+  schemas={[personSchema, serviceCatalogSchema]}
+>
+  <HeroSection />
+  <AboutSection />
+  <ServicesSection />
+  <FrameworkSection />
+  <PodcastSection />
+  <CTASection />
+  <ContactSection />
+</Layout>

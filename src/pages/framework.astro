@@ -1,0 +1,65 @@
+---
+import Layout from '../layouts/Layout.astro';
+import FrameworkSection from '../components/FrameworkSection.astro';
+import CTASection from '../components/CTASection.astro';
+import { SITE, FREEDOM_STEPS } from '../data/site';
+
+const title = 'The F.R.E.E.D.O.M. Framework — Engine Behind Rev OS | Metric Mentor Labs';
+const description = 'The F.R.E.E.D.O.M. Framework is the seven-step backbone of the Rev OS: Filter, Relate, Educate, Empower, Define, Optimize, Maximize. Bridge the gap between ambition and achievement.';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is the F.R.E.E.D.O.M. Framework?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The F.R.E.E.D.O.M. Framework is the engine behind the Rev OS. It is a seven-step business operating discipline — Filter, Relate, Educate, Empower, Define, Optimize, Maximize — that helps founders move from ambition to repeatable execution.',
+      },
+    },
+    ...FREEDOM_STEPS.map((step) => ({
+      '@type': 'Question',
+      name: `What does "${step.word}" mean in the F.R.E.E.D.O.M. Framework?`,
+      acceptedAnswer: { '@type': 'Answer', text: step.description },
+    })),
+    {
+      '@type': 'Question',
+      name: 'How is F.R.E.E.D.O.M. different from EOS, Scaling Up, or other operating systems?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'F.R.E.E.D.O.M. focuses specifically on the revenue playbooks layer of operations — the system that turns strategic decisions into weekly execution rhythms, with profit-per-acquisition as the decision-making lens. It works alongside or instead of broader operating systems by giving founders a revenue-first decision discipline.',
+      },
+    },
+  ],
+};
+
+const howToSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'How to apply the F.R.E.E.D.O.M. Framework in your business',
+  description: 'A seven-step operating discipline for founder-led businesses ready to scale revenue with structure.',
+  step: FREEDOM_STEPS.map((s, i) => ({
+    '@type': 'HowToStep',
+    position: i + 1,
+    name: s.word,
+    text: s.description,
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Framework', item: `${SITE.url}/framework` },
+  ],
+};
+---
+
+<Layout title={title} description={description} schemas={[faqSchema, howToSchema, breadcrumbSchema]}>
+  <div class="pt-32"></div>
+  <FrameworkSection />
+  <CTASection />
+</Layout>

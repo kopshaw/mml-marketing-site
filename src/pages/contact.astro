@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { SITE } from '../data/site';
+
+const title = 'Contact Metric Mentor Labs — Start Installing Rev OS';
+const description = 'Get in touch with Metric Mentor Labs to start installing the Rev OS into your business. Email Steve directly or use the form to share your business goals.';
+
+const contactSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  url: `${SITE.url}/contact`,
+  mainEntity: {
+    '@type': 'Organization',
+    '@id': `${SITE.url}#organization`,
+  },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Contact', item: `${SITE.url}/contact` },
+  ],
+};
+---
+
+<Layout title={title} description={description} schemas={[contactSchema, breadcrumbSchema]}>
+  <div class="pt-32"></div>
+  <ContactSection />
+</Layout>

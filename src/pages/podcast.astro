@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PodcastSection from '../components/PodcastSection.astro';
+import CTASection from '../components/CTASection.astro';
+import { SITE } from '../data/site';
+
+const title = 'Podcast Appearances — Steve Kopshaw | Metric Mentor Labs';
+const description = "Listen to Steve Kopshaw's podcast appearances, including Build Your Wealth Muscle Episode 70 on Spotify. Insights on revenue, scaling, and building wealth from a 20-year operator.";
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Podcast', item: `${SITE.url}/podcast` },
+  ],
+};
+
+const episodeSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'PodcastEpisode',
+  name: 'Build Your Wealth Muscle — Episode 70 with Steve Kopshaw',
+  description:
+    'Steve discusses the gap between revenue success and wealth-building, with actionable strategies for entrepreneurs.',
+  url: 'https://open.spotify.com/episode/2JBnx0FGduPrmlv65wdj7p',
+  partOfSeries: { '@type': 'PodcastSeries', name: 'Build Your Wealth Muscle' },
+};
+---
+
+<Layout title={title} description={description} schemas={[breadcrumbSchema, episodeSchema]}>
+  <div class="pt-32"></div>
+  <PodcastSection />
+  <CTASection />
+</Layout>

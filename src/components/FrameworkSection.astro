@@ -1,0 +1,51 @@
+---
+import lionEmblem from '../assets/lion-emblem.png';
+import { FREEDOM_STEPS } from '../data/site';
+import { Filter, Link as LinkIcon, BookOpen, Zap, Target, Settings, Maximize } from 'lucide-react';
+
+const ICONS: Record<string, any> = {
+  Filter, Link: LinkIcon, BookOpen, Zap, Target, Settings, Maximize,
+};
+---
+
+<section id="framework" class="relative section-padding overflow-hidden">
+  <img
+    src={lionEmblem.src}
+    alt=""
+    aria-hidden="true"
+    class="absolute left-[-100px] top-1/2 -translate-y-1/2 w-[600px] opacity-[0.06] pointer-events-none select-none"
+  />
+
+  <div class="max-w-7xl mx-auto relative z-10">
+    <div class="text-center mb-16">
+      <p class="font-body text-sm tracking-[0.3em] text-primary uppercase mb-3">The Engine Behind Rev OS</p>
+      <h2 class="text-4xl md:text-6xl font-display text-foreground">
+        The <span class="font-accent text-5xl md:text-7xl gradient-text">F.R.E.E.D.O.M.</span> Framework
+      </h2>
+      <p class="font-body text-muted-foreground max-w-2xl mx-auto mt-4 leading-relaxed">
+        The backbone of the <span class="font-accent text-lg text-primary">Rev OS</span> &mdash;
+        meticulously crafted to bridge the gap between ambition and achievement for entrepreneurs.
+      </p>
+    </div>
+
+    <div class="space-y-4">
+      {FREEDOM_STEPS.map((step) => {
+        const Icon = ICONS[step.icon];
+        return (
+          <div class="group flex items-start gap-6 bg-card border border-border rounded-sm p-6 hover:border-primary/40 transition-all duration-300">
+            <div class="shrink-0 w-14 h-14 gradient-accent rounded-sm flex items-center justify-center">
+              <span class="font-accent text-3xl text-primary-foreground">{step.letter}</span>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-2">
+                <Icon className="w-5 h-5 text-accent" />
+                <h3 class="text-xl font-accent text-foreground normal-case">{step.word}</h3>
+              </div>
+              <p class="font-body text-muted-foreground leading-relaxed text-sm">{step.description}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

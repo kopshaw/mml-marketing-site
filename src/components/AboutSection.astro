@@ -1,0 +1,81 @@
+---
+import aboutBg from '../assets/about-bg.jpg';
+import { STATS } from '../data/site';
+
+interface Props {
+  showFull?: boolean;
+}
+const { showFull = false } = Astro.props;
+---
+
+<section id="about" class="section-padding">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div class="relative">
+        <img
+          src={aboutBg.src}
+          alt="Steve Kopshaw — Business Coach, Mentor, and founder of Metric Mentor Labs"
+          class="w-full aspect-[3/4] object-cover object-top"
+          style="mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 50%, transparent 100%); -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 50%, transparent 100%);"
+        />
+      </div>
+
+      <div>
+        <p class="font-body text-sm tracking-[0.3em] text-primary uppercase mb-3">About Me</p>
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-display text-foreground mb-2">
+          Steve Kopshaw
+        </h2>
+        <p class="font-body text-sm italic text-accent mb-6">
+          Mentor <span class="text-muted-foreground">&middot; noun &middot;</span> An experienced and trusted adviser.
+        </p>
+        <div class="space-y-4 font-body text-muted-foreground leading-relaxed">
+          <p>
+            A quick-thinking, insight-dropping, always strategizing, move-making, serial
+            entrepreneur with an obsessive passion for helping the true change-makers of
+            the world build their empires.
+          </p>
+          <p>
+            Through trials, errors, and successes, I&rsquo;ve built the
+            <span class="font-accent text-xl text-primary">Rev OS</span> &mdash; the Revenue
+            Playbooks Operating System &mdash; a repeatable system we install into businesses to
+            unlock scalable growth. It&rsquo;s powered by the
+            <span class="font-accent text-xl text-accent">F.R.E.E.D.O.M.</span> Framework,
+            a distilled version of every lesson learned and every strategy developed.
+          </p>
+          {showFull && (
+            <>
+              <p>
+                Over two decades of operating, advising, and consulting across industries, I&rsquo;ve
+                seen what stalls great businesses: leaders who can&rsquo;t step out of execution,
+                strategies that never become routines, and growth that depends on heroics.
+              </p>
+              <p>
+                Rev OS was built to fix that &mdash; permanently. We don&rsquo;t hand you a binder of
+                slides. We install a working system into your business: dashboards your team
+                actually uses, playbooks that close the strategy-to-execution gap, and accountability
+                rhythms that make weekly progress visible.
+              </p>
+            </>
+          )}
+        </div>
+
+        <div class="grid grid-cols-3 gap-6 mt-10">
+          {STATS.map((stat) => (
+            <div class="text-center lg:text-left">
+              <div class="font-display text-3xl md:text-4xl gradient-text">{stat.number}</div>
+              <div class="font-body text-xs tracking-wider uppercase text-muted-foreground mt-1">
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {!showFull && (
+          <a href="/about" class="inline-block mt-8 font-body text-sm tracking-wider uppercase text-accent hover:text-primary transition-colors">
+            Read Steve&rsquo;s full story &rarr;
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
