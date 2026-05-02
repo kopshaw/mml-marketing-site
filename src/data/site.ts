@@ -79,9 +79,9 @@ export const NAV = [
   { label: 'Framework',  href: '/framework' },
   { label: 'Services',   href: '/services' },
   { label: 'Clients',    href: '/clients' },
+  { label: 'Resources',  href: '/resources' },
+  { label: 'FAQ',        href: '/faq' },
   { label: 'Speaking',   href: '/speaking' },
-  { label: 'Podcast',    href: '/podcast' },
-  { label: 'Blog',       href: '/blog' },
   { label: 'Contact',    href: '/contact' },
 ] as const;
 

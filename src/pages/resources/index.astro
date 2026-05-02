@@ -1,0 +1,102 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '../../data/site';
+
+const all = await getCollection('resources');
+const sorted = all.sort((a, b) =>
+  // Pillars first, then most recent
+  (Number(b.data.pillar) - Number(a.data.pillar)) ||
+  (new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime())
+);
+
+const clusters = [
+  { id: 'revenue-operations',     label: 'Revenue Operations',         description: 'How revenue actually flows through a business.' },
+  { id: 'business-systems',       label: 'Business Systems & SOPs',    description: 'Documenting and running a business by the book.' },
+  { id: 'fractional-leadership',  label: 'Fractional Leadership',      description: 'Senior execution capacity without a full-time hire.' },
+  { id: 'operator-mindset',       label: 'Operator Mindset',           description: 'The discipline of running a business by the numbers.' },
+  { id: 'scaling-frameworks',     label: 'Scaling Frameworks',         description: 'Breaking through revenue ceilings and plateaus.' },
+] as const;
+
+const title = 'Resources — Operator Playbooks, Frameworks, and Field Notes | Metric Mentor Labs';
+const description = 'Long-form articles on the Rev OS, F.R.E.E.D.O.M. Framework, fractional leadership, scaling past $1M / $3M / $10M, SOPs, scorecards, and the operator mindset. Built for $500K–$25M operators.';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Resources', item: `${SITE.url}/resources` },
+  ],
+};
+
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  url: `${SITE.url}/resources`,
+  name: 'Metric Mentor Labs Resources',
+  description,
+  hasPart: sorted.map((r) => ({
+    '@type': 'Article',
+    headline: r.data.title,
+    description: r.data.description,
+    url: `${SITE.url}/resources/${r.slug}`,
+    datePublished: r.data.publishedAt,
+  })),
+};
+---
+
+<Layout title={title} description={description} schemas={[breadcrumbSchema, collectionSchema]}>
+  <section class="pt-32 pb-12 px-6 md:px-12 max-w-6xl mx-auto">
+    <p class="font-body text-sm tracking-[0.3em] text-primary uppercase mb-3">Resources</p>
+    <h1 class="text-4xl md:text-6xl font-display text-foreground mb-6">
+      Operator Playbooks &amp; Field Notes
+    </h1>
+    <p class="font-body text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl">
+      Long-form articles on the Rev OS, the F.R.E.E.D.O.M. Framework, fractional leadership,
+      scaling, SOPs, and the discipline of running a business by the numbers. No motivation,
+      no hype &mdash; just the work.
+    </p>
+  </section>
+
+  {clusters.map((cluster) => {
+    const inCluster = sorted.filter((r) => r.data.cluster === cluster.id);
+    if (inCluster.length === 0) return null;
+    return (
+      <section class="px-6 md:px-12 py-10 max-w-6xl mx-auto border-t border-border/30">
+        <div class="mb-8">
+          <h2 class="text-2xl md:text-3xl font-display text-foreground mb-2">{cluster.label}</h2>
+          <p class="font-body text-sm text-muted-foreground">{cluster.description}</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {inCluster.map((r) => (
+            <a href={`/resources/${r.slug}`} class={`group block bg-card border rounded-sm p-6 transition-colors ${r.data.pillar ? 'border-primary/40 hover:border-primary' : 'border-border hover:border-primary/40'}`}>
+              {r.data.pillar && (
+                <p class="font-body text-[10px] tracking-wider uppercase text-primary mb-2">Pillar</p>
+              )}
+              <h3 class="font-display text-xl text-foreground mb-2 leading-tight">{r.data.title}</h3>
+              <p class="font-body text-sm text-muted-foreground leading-relaxed mb-3">{r.data.description}</p>
+              <p class="font-body text-xs tracking-wider uppercase text-accent group-hover:text-primary transition-colors">Read &rarr;</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    );
+  })}
+
+  <section class="px-6 md:px-12 py-16 max-w-3xl mx-auto text-center border-t border-border/30 mt-8">
+    <h2 class="text-3xl md:text-4xl font-display text-foreground mb-4">Have a question we haven&rsquo;t answered?</h2>
+    <p class="font-body text-muted-foreground mb-8 leading-relaxed">
+      We answer 50+ of the most common operator questions on the FAQ. If yours isn&rsquo;t there,
+      run the diagnostic &mdash; the results are usually the answer.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="/faq" class="inline-block border border-accent/40 text-accent font-body text-sm font-semibold tracking-wider uppercase px-8 py-3 rounded-sm hover:border-accent hover:bg-accent/5 transition-all">
+        See the full FAQ
+      </a>
+      <a href={SITE.diagnosticUrl} class="inline-block gradient-accent text-primary-foreground font-body text-sm font-semibold tracking-wider uppercase px-8 py-3 rounded-sm hover:opacity-90 transition-opacity">
+        Take the diagnostic
+      </a>
+    </div>
+  </section>
+</Layout>
