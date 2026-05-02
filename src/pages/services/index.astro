@@ -1,11 +1,12 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ServicesSection from '../../components/ServicesSection.astro';
+import PainsSection from '../../components/PainsSection.astro';
 import CTASection from '../../components/CTASection.astro';
 import { SITE, SERVICES } from '../../data/site';
 
-const title = 'Services — Rev OS Installation, Leadership, Revenue Growth | Metric Mentor Labs';
-const description = 'Four focused engagements built around the Rev OS: Rev OS Installation, Leadership Development, Revenue Growth Consulting, and Strategic Execution Coaching.';
+const title = 'Services & Service Ladder — Free Diagnostic to Fractional Leadership | Metric Mentor Labs';
+const description = 'From the free FREEDOM Diagnostic ($0) to Fractional Growth Leadership ($2K–$15K+/mo). Seven tiers built around the Rev OS and the F.R.E.E.D.O.M. Framework. Industry-agnostic. $500K–$25M operators.';
 
 const itemListSchema = {
   '@context': 'https://schema.org',
@@ -32,5 +33,9 @@ const breadcrumbSchema = {
 <Layout title={title} description={description} schemas={[itemListSchema, breadcrumbSchema]}>
   <div class="pt-32"></div>
   <ServicesSection />
+  <PainsSection
+    heading="What this work actually fixes"
+    subhead="Every service tier targets a specific class of operator pain. If any of these sound like your business, the diagnostic will tell you exactly which tier matches the constraint."
+  />
   <CTASection />
 </Layout>

@@ -1,11 +1,13 @@
 ---
+// F.R.E.E.D.O.M. — Part 2: the 7-domain diagnostic (the SEO/AEO version).
+// Optional: also surface Part 1 (engagement methodology) as a smaller block below.
 import lionEmblem from '../assets/lion-emblem.png';
-import { FREEDOM_STEPS } from '../data/site';
-import { Filter, Link as LinkIcon, BookOpen, Zap, Target, Settings, Maximize } from 'lucide-react';
+import { FREEDOM_DOMAINS, FREEDOM_METHODOLOGY } from '../data/site';
 
-const ICONS: Record<string, any> = {
-  Filter, Link: LinkIcon, BookOpen, Zap, Target, Settings, Maximize,
-};
+interface Props {
+  showMethodology?: boolean;   // toggle the Part 1 block
+}
+const { showMethodology = false } = Astro.props;
 ---
 
 <section id="framework" class="relative section-padding overflow-hidden">
@@ -16,36 +18,73 @@ const ICONS: Record<string, any> = {
     class="absolute left-[-100px] top-1/2 -translate-y-1/2 w-[600px] opacity-[0.06] pointer-events-none select-none"
   />
 
-  <div class="max-w-7xl mx-auto relative z-10">
+  <div class="max-w-6xl mx-auto relative z-10">
     <div class="text-center mb-16">
       <p class="font-body text-sm tracking-[0.3em] text-primary uppercase mb-3">The Engine Behind Rev OS</p>
       <h2 class="text-4xl md:text-6xl font-display text-foreground">
         The <span class="font-accent text-5xl md:text-7xl gradient-text">F.R.E.E.D.O.M.</span> Framework
       </h2>
-      <p class="font-body text-muted-foreground max-w-2xl mx-auto mt-4 leading-relaxed">
-        The backbone of the <span class="font-accent text-lg text-primary">Rev OS</span> &mdash;
-        meticulously crafted to bridge the gap between ambition and achievement for entrepreneurs.
+      <p class="font-body text-muted-foreground max-w-3xl mx-auto mt-4 leading-relaxed">
+        Seven domains we score, seven leverage points we install. The lowest-scoring domain is the
+        highest-leverage fix &mdash; and the order matters. No later domain can be optimized if the
+        financial picture is unclear.
       </p>
     </div>
 
-    <div class="space-y-4">
-      {FREEDOM_STEPS.map((step) => {
-        const Icon = ICONS[step.icon];
-        return (
-          <div class="group flex items-start gap-6 bg-card border border-border rounded-sm p-6 hover:border-primary/40 transition-all duration-300">
-            <div class="shrink-0 w-14 h-14 gradient-accent rounded-sm flex items-center justify-center">
-              <span class="font-accent text-3xl text-primary-foreground">{step.letter}</span>
-            </div>
-            <div class="flex-1">
-              <div class="flex items-center gap-3 mb-2">
-                <Icon className="w-5 h-5 text-accent" />
-                <h3 class="text-xl font-accent text-foreground normal-case">{step.word}</h3>
-              </div>
-              <p class="font-body text-muted-foreground leading-relaxed text-sm">{step.description}</p>
-            </div>
+    <div class="space-y-3">
+      {FREEDOM_DOMAINS.map((d, i) => (
+        <article class="group flex items-start gap-5 bg-card border border-border rounded-sm p-5 md:p-7 hover:border-primary/40 transition-all duration-300">
+          <div class="shrink-0 w-14 h-14 md:w-16 md:h-16 gradient-accent rounded-sm flex items-center justify-center">
+            <span class="font-accent text-3xl md:text-4xl text-primary-foreground">{d.letter}</span>
           </div>
-        );
-      })}
+          <div class="flex-1 min-w-0">
+            <h3 class="text-xl md:text-2xl font-display text-foreground mb-1">{d.word}</h3>
+            <p class="font-body text-sm md:text-base italic text-accent mb-3">{d.headline}</p>
+            <p class="font-body text-sm text-muted-foreground leading-relaxed mb-3">
+              <strong class="text-foreground/80">What good looks like:</strong> {d.goodLooksLike}
+            </p>
+            <details class="group/details">
+              <summary class="font-body text-xs tracking-wider uppercase text-primary cursor-pointer hover:text-accent transition-colors list-none">
+                <span class="group-open/details:hidden">Show factors &rarr;</span>
+                <span class="hidden group-open/details:inline">Hide factors &uarr;</span>
+              </summary>
+              <ul class="mt-3 space-y-1.5">
+                {d.factors.map((f) => (
+                  <li class="font-body text-xs text-muted-foreground flex gap-2">
+                    <span class="text-primary">·</span><span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          </div>
+        </article>
+      ))}
     </div>
+
+    {showMethodology && (
+      <div class="mt-20 pt-10 border-t border-border/30">
+        <div class="text-center mb-10">
+          <p class="font-body text-sm tracking-[0.3em] text-primary uppercase mb-3">How We Engage</p>
+          <h3 class="text-3xl md:text-4xl font-display text-foreground">
+            The 7-Step Methodology
+          </h3>
+          <p class="font-body text-muted-foreground max-w-2xl mx-auto mt-3 leading-relaxed text-sm">
+            The diagnostic scores the business. The methodology runs the engagement. Every project moves
+            through these seven steps in order &mdash; from filtering the fit to maximizing the system.
+          </p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-3">
+          {FREEDOM_METHODOLOGY.map((step, i) => (
+            <div class="flex items-start gap-4 bg-card/50 border border-border/50 rounded-sm p-4">
+              <span class="shrink-0 w-8 h-8 rounded-full border border-accent/40 flex items-center justify-center font-accent text-accent">{i + 1}</span>
+              <div>
+                <p class="font-body text-sm font-semibold text-foreground">{step.letter} &mdash; {step.word}</p>
+                <p class="font-body text-xs text-muted-foreground leading-relaxed mt-1">{step.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
   </div>
 </section>

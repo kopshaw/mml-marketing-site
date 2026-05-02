@@ -1,40 +1,69 @@
 ---
+// Service ladder — Diagnostic → Toolbox → RISE → Social Bot → Quarterly Advisory
+//                  → Rev OS Installation → Fractional Growth Leadership.
+// Featured items get the gradient treatment; products are visible but not featured.
 import { SERVICES } from '../data/site';
-import { MessageSquare, Users, TrendingUp, Lightbulb } from 'lucide-react';
+import { Compass, Wrench, Database, MessageSquareMore, Calendar, Settings, UserCheck } from 'lucide-react';
 
 const ICONS: Record<string, any> = {
-  'rev-os-installation': MessageSquare,
-  'leadership-development': Users,
-  'revenue-growth-consulting': TrendingUp,
-  'strategic-execution-coaching': Lightbulb,
+  'freedom-diagnostic': Compass,
+  'mml-toolbox': Wrench,
+  'rise-crm': Database,
+  'social-growth-bot': MessageSquareMore,
+  'quarterly-advisory': Calendar,
+  'rev-os-installation': Settings,
+  'fractional-growth-leadership': UserCheck,
 };
 ---
 
-<section id="services" class="relative section-padding" style="background: hsl(210, 20%, 96%);">
-  <div class="max-w-7xl mx-auto relative z-10">
+<section id="services" class="section-padding bg-background">
+  <div class="max-w-7xl mx-auto">
     <div class="text-center mb-16">
-      <p class="font-body text-sm tracking-[0.3em] text-primary uppercase mb-3">What We Do</p>
-      <h2 class="text-4xl md:text-6xl font-display" style="color: hsl(215, 30%, 12%);">
-        Install <span class="font-accent text-5xl md:text-7xl gradient-text">Rev OS</span> Into Your Business
+      <p class="font-body text-sm tracking-[0.3em] text-primary uppercase mb-3">What We Install</p>
+      <h2 class="text-4xl md:text-6xl font-display text-foreground">
+        From <span class="font-accent text-5xl md:text-6xl gradient-text">Free Diagnostic</span> to <span class="font-accent text-5xl md:text-6xl gradient-text">Fractional Leadership</span>
       </h2>
+      <p class="font-body text-muted-foreground max-w-2xl mx-auto mt-4 leading-relaxed">
+        Every engagement starts with a diagnostic. From there, the path forward is matched to where the
+        constraint lives &mdash; self-service tools, advisory, full Rev OS installation, or embedded leadership.
+      </p>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-6">
-      {SERVICES.map((service) => {
-        const Icon = ICONS[service.slug];
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {SERVICES.map((service, i) => {
+        const Icon = ICONS[service.slug] || Wrench;
+        const featured = service.featured;
         return (
           <a
             href={`/services/${service.slug}`}
-            class="group block border rounded-sm p-8 hover:border-primary/40 transition-all duration-300"
-            style="background: white; border-color: hsl(215, 15%, 85%);"
+            class={`group relative block border rounded-sm p-7 transition-all duration-300 ${
+              featured
+                ? 'border-primary/50 bg-card hover:border-primary glow-accent'
+                : 'border-border bg-card/50 hover:border-primary/40'
+            }`}
           >
-            <Icon className="w-10 h-10 text-primary mb-5 group-hover:scale-110 transition-transform" />
-            <h3 class="text-2xl font-display mb-3" style="color: hsl(215, 30%, 12%);">{service.title}</h3>
-            <p class="font-body leading-relaxed" style="color: hsl(215, 15%, 40%);">{service.description}</p>
-            <p class="font-body text-sm tracking-wider uppercase mt-4 text-primary">Learn more &rarr;</p>
+            {featured && (
+              <span class="absolute -top-2 right-5 font-body text-[10px] tracking-wider uppercase bg-primary text-primary-foreground px-2 py-0.5 rounded-sm">
+                Start Here
+              </span>
+            )}
+            <div class="flex items-start justify-between mb-5">
+              <Icon className={`w-9 h-9 ${featured ? 'text-primary' : 'text-accent'} group-hover:scale-110 transition-transform`} />
+              <span class="font-body text-sm font-semibold text-foreground/90">{service.price}</span>
+            </div>
+            <h3 class="text-xl font-display text-foreground mb-2">{service.title}</h3>
+            <p class="font-body text-sm text-muted-foreground leading-relaxed mb-4">{service.short}</p>
+            <p class="font-body text-xs tracking-wider uppercase text-primary group-hover:text-accent transition-colors">
+              Learn more &rarr;
+            </p>
           </a>
         );
       })}
     </div>
+
+    <p class="text-center mt-10 font-body text-sm text-muted-foreground italic max-w-2xl mx-auto">
+      Not sure where to start? The FREEDOM Diagnostic surfaces which constraint is costing you the most
+      revenue right now &mdash; and matches you to the right tier.
+    </p>
   </div>
 </section>

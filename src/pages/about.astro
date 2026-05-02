@@ -1,31 +1,33 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import AboutSection from '../components/AboutSection.astro';
+import PressStrip from '../components/PressStrip.astro';
 import CTASection from '../components/CTASection.astro';
-import { SITE } from '../data/site';
+import { SITE, STATS } from '../data/site';
 
-const title = 'About Steve Kopshaw — Founder of Metric Mentor Labs & Rev OS';
-const description = 'Steve Kopshaw is a serial entrepreneur, business mentor, and the founder of Metric Mentor Labs. He created the Rev OS — the Revenue Playbooks Operating System — and the F.R.E.E.D.O.M. Framework to help entrepreneurs scale with clarity.';
+const title = 'About Steve Kopshaw — The Metric Mentor | Metric Mentor Labs';
+const description = 'Steve Kopshaw is a 20+ year operator and the founder of Metric Mentor Labs. 17 locations across 6 states. $300M+ revenue generated. $50M+ exit trajectory at NCI. ClickFunnels Two Comma Club. Acquisition.com mentorship.';
 
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   '@id': `${SITE.url}#steve-kopshaw`,
   name: SITE.founder.name,
+  alternateName: 'The Metric Mentor',
   jobTitle: SITE.founder.jobTitle,
   email: SITE.founder.email,
   url: `${SITE.url}/about`,
-  description: 'Founder of Metric Mentor Labs. Built the Rev OS — Revenue Playbooks Operating System — and the F.R.E.E.D.O.M. Framework over 20+ years of operating, advising, and scaling founder-led businesses.',
-  knowsAbout: [
-    'Revenue operations',
-    'Business scaling',
-    'Leadership development',
-    'Strategic execution',
-    'Entrepreneurship',
-    'Revenue Playbooks Operating System',
-    'F.R.E.E.D.O.M. Framework',
-  ],
+  description: SITE.founder.bio,
+  sameAs: SITE.founder.sameAs,
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'Polytechnic University' },
+  award: ['ClickFunnels Two Comma Club'],
   worksFor: { '@id': `${SITE.url}#organization` },
+  knowsAbout: [
+    'Revenue Operating Systems', 'Rev OS',
+    'Fractional COO', 'Fractional VP Growth',
+    'F.R.E.E.D.O.M. Framework', 'Business systemization',
+    'Scaling founder-led businesses',
+  ],
 };
 
 const breadcrumbSchema = {
@@ -41,5 +43,30 @@ const breadcrumbSchema = {
 <Layout title={title} description={description} schemas={[personSchema, breadcrumbSchema]} ogType="profile">
   <div class="pt-32"></div>
   <AboutSection showFull={true} />
+
+  <section class="section-padding bg-secondary/30">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-display text-foreground text-center mb-10">Credentials &amp; Proof Points</h2>
+      <div class="grid md:grid-cols-2 gap-3">
+        {[
+          { k: 'Operator experience', v: '20+ years building, scaling, and fixing businesses' },
+          { k: 'Multi-unit operations', v: '17 locations across 6 states' },
+          { k: 'Revenue generated', v: '$300M+ across operated and advised businesses' },
+          { k: 'Executive exit', v: '$50M+ exit trajectory at NCI as COO / VP Growth' },
+          { k: 'Funnel proof', v: 'ClickFunnels Two Comma Club ($1M+ single funnel)' },
+          { k: 'Mentorship', v: 'Acquisition.com network' },
+          { k: 'Education', v: 'Computer engineering degree, Polytechnic University' },
+          { k: 'Speaking', v: 'Stages alongside Hormozi, Bilyeu, Mylett, Keuilian, Santonastasso' },
+        ].map((row) => (
+          <div class="bg-card border border-border rounded-sm p-4">
+            <p class="font-body text-xs tracking-wider uppercase text-primary mb-1">{row.k}</p>
+            <p class="font-body text-sm text-foreground/85">{row.v}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <PressStrip />
   <CTASection />
 </Layout>

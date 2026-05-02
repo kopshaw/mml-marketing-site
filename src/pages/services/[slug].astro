@@ -9,8 +9,9 @@ export function getStaticPaths() {
 
 const { slug } = Astro.params;
 const service = SERVICES.find((s) => s.slug === slug)!;
+const otherServices = SERVICES.filter((s) => s.slug !== service.slug);
 
-const title = `${service.title} | Metric Mentor Labs`;
+const title = `${service.title} — ${service.price} | Metric Mentor Labs`;
 const description = service.description;
 
 const serviceSchema = {
@@ -22,6 +23,11 @@ const serviceSchema = {
   provider: { '@id': `${SITE.url}#organization` },
   areaServed: 'United States',
   serviceType: service.title,
+  offers: {
+    '@type': 'Offer',
+    price: service.price,
+    priceCurrency: 'USD',
+  },
 };
 
 const breadcrumbSchema = {
@@ -33,40 +39,74 @@ const breadcrumbSchema = {
     { '@type': 'ListItem', position: 3, name: service.title, item: `${SITE.url}/services/${service.slug}` },
   ],
 };
-
-const otherServices = SERVICES.filter((s) => s.slug !== service.slug);
 ---
 
 <Layout title={title} description={description} schemas={[serviceSchema, breadcrumbSchema]}>
-  <section class="pt-32 pb-16 px-6 md:px-12 max-w-4xl mx-auto">
-    <p class="font-body text-sm tracking-[0.3em] text-primary uppercase mb-3">Service</p>
-    <h1 class="text-4xl md:text-6xl font-display text-foreground mb-6">{service.title}</h1>
-    <p class="font-body text-xl text-muted-foreground leading-relaxed mb-8">
+  <section class="pt-32 pb-12 px-6 md:px-12 max-w-4xl mx-auto">
+    <p class="font-body text-sm tracking-[0.3em] text-primary uppercase mb-3">
+      Service Tier · {service.price}
+    </p>
+    <h1 class="text-4xl md:text-6xl font-display text-foreground mb-4">{service.title}</h1>
+    <p class="font-body text-xl md:text-2xl text-accent leading-relaxed mb-6">
       {service.short}
     </p>
-    <p class="font-body text-base text-foreground/80 leading-relaxed mb-12">
+    <p class="font-body text-base text-foreground/80 leading-relaxed mb-10">
       {service.description}
     </p>
 
+    <div class="grid md:grid-cols-2 gap-5 mb-10">
+      <div class="bg-card border border-border rounded-sm p-5">
+        <p class="font-body text-xs tracking-wider uppercase text-primary mb-2">Who It&rsquo;s For</p>
+        <p class="font-body text-sm text-foreground/85 leading-relaxed">{service.forWho}</p>
+      </div>
+      <div class="bg-card border border-border rounded-sm p-5">
+        <p class="font-body text-xs tracking-wider uppercase text-primary mb-2">Expected Outcome</p>
+        <p class="font-body text-sm text-foreground/85 leading-relaxed">{service.outcome}</p>
+      </div>
+    </div>
+
+    <div class="border-t border-border/30 pt-8 mb-10">
+      <p class="font-body text-xs tracking-wider uppercase text-primary mb-4">What&rsquo;s Included</p>
+      <ul class="space-y-2">
+        {service.includes.map((item) => (
+          <li class="flex gap-3 font-body text-sm text-foreground/85 leading-relaxed">
+            <span class="text-primary shrink-0 font-display">→</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
     <a
-      href="/contact"
+      href={service.ctaHref}
+      target={service.ctaHref.startsWith('http') ? '_blank' : undefined}
+      rel={service.ctaHref.startsWith('http') ? 'noopener noreferrer' : undefined}
       class="inline-block gradient-accent text-primary-foreground font-body text-base font-semibold tracking-wider uppercase px-10 py-4 rounded-sm glow-accent hover:opacity-90 transition-opacity"
     >
-      Start the conversation
+      {service.cta}
     </a>
+
+    {service.application && (
+      <p class="font-body text-xs text-muted-foreground italic mt-3">
+        Application-gated. Not every business is a fit. The diagnostic is the filter.
+      </p>
+    )}
   </section>
 
-  <section class="px-6 md:px-12 py-16 max-w-7xl mx-auto">
-    <h2 class="text-2xl md:text-3xl font-display text-foreground mb-8">Other engagements</h2>
-    <div class="grid md:grid-cols-3 gap-6">
-      {otherServices.map((s) => (
+  <section class="px-6 md:px-12 py-16 max-w-7xl mx-auto border-t border-border/30">
+    <h2 class="text-2xl md:text-3xl font-display text-foreground mb-8 text-center">
+      Other Tiers in the Service Ladder
+    </h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      {otherServices.slice(0, 6).map((s) => (
         <a
           href={`/services/${s.slug}`}
-          class="group block border border-border rounded-sm p-6 hover:border-primary/40 transition-all"
+          class="group block border border-border rounded-sm p-5 hover:border-primary/40 transition-all bg-card/50"
         >
-          <h3 class="font-display text-xl text-foreground mb-2">{s.title}</h3>
+          <p class="font-body text-xs text-muted-foreground mb-1">{s.price}</p>
+          <h3 class="font-display text-lg text-foreground mb-2">{s.title}</h3>
           <p class="font-body text-sm text-muted-foreground leading-relaxed">{s.short}</p>
-          <p class="font-body text-xs tracking-wider uppercase mt-3 text-primary">Learn more &rarr;</p>
+          <p class="font-body text-xs tracking-wider uppercase mt-3 text-primary">More &rarr;</p>
         </a>
       ))}
     </div>

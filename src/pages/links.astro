@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { LINKS, SITE } from '../data/site';
+
+const title = 'Steve Kopshaw — Links | Metric Mentor Labs';
+const description = 'Diagnostic, podcast, services, and social — every link from Steve Kopshaw\'s bio in one place.';
+---
+
+<Layout title={title} description={description} noindex={true}>
+  <section class="min-h-screen pt-24 pb-16 px-6">
+    <div class="max-w-md mx-auto">
+      <div class="text-center mb-10">
+        <p class="font-body text-sm tracking-[0.3em] text-primary uppercase mb-2">@stevekopshaw</p>
+        <h1 class="text-3xl font-display text-foreground mb-2">Steve Kopshaw</h1>
+        <p class="font-body text-sm text-accent mb-1">{SITE.founder.title}</p>
+        <p class="font-body text-xs text-muted-foreground italic mb-6">{SITE.identityLine}</p>
+        <p class="font-body text-sm text-foreground/80 leading-relaxed">
+          {SITE.oneLiner}
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        {LINKS.map((link) => (
+          <a
+            href={link.href}
+            target={link.href.startsWith('http') ? '_blank' : undefined}
+            rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            class={`block w-full text-center font-body text-sm font-semibold tracking-wider uppercase px-6 py-4 rounded-sm transition-all ${
+              link.primary
+                ? 'gradient-accent text-primary-foreground glow-accent hover:opacity-90'
+                : 'bg-card border border-border hover:border-primary/40 text-foreground'
+            }`}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+
+      <p class="text-center font-body text-[10px] text-muted-foreground/60 mt-10">
+        revenue. by. design. &mdash; {new Date().getFullYear()}
+      </p>
+    </div>
+  </section>
+</Layout>

@@ -1,21 +1,27 @@
 ---
+import { SITE } from '../data/site';
 ---
 
-<section class="relative py-32 overflow-hidden bg-background">
+<section class="relative py-32 overflow-hidden bg-background border-t border-border/30">
   <div class="relative z-10 text-center px-6 max-w-3xl mx-auto">
-    <h2 class="text-5xl md:text-7xl font-display text-foreground mb-4">Ready to Install</h2>
-    <p class="font-accent text-6xl md:text-8xl gradient-text mb-4">
-      Rev OS<span class="font-display text-5xl md:text-7xl text-foreground">?</span>
+    <p class="font-body text-sm tracking-[0.3em] text-primary uppercase mb-3">Start Here</p>
+    <h2 class="text-5xl md:text-7xl font-display text-foreground mb-4">Take the diagnostic.</h2>
+    <p class="font-accent text-5xl md:text-7xl gradient-text mb-6 normal-case">
+      Find the constraint.
     </p>
     <p class="font-body text-lg text-muted-foreground mb-10 leading-relaxed">
-      Stop guessing. Start growing. The Revenue Playbooks Operating System gives your
-      business the structure, playbooks, and accountability to scale with confidence.
+      24 questions. A score across all seven F.R.E.E.D.O.M. domains. A clear, written
+      assessment of which constraint is costing you the most revenue right now — and
+      where to fix it first. No sales call required to view results.
     </p>
     <a
-      href="/contact"
+      href={SITE.diagnosticUrl}
       class="inline-block gradient-accent text-primary-foreground font-body text-lg font-semibold tracking-wider uppercase px-12 py-5 rounded-sm glow-accent hover:opacity-90 transition-opacity whitespace-nowrap"
     >
-      Yes! Install Rev OS Now
+      Take the FREEDOM Diagnostic
     </a>
+    <p class="font-body text-xs text-muted-foreground/70 mt-4 italic">
+      Free. 10–15 minutes. Required entry point for every MML engagement.
+    </p>
   </div>
 </section>

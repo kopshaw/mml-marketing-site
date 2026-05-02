@@ -2,10 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import FrameworkSection from '../components/FrameworkSection.astro';
 import CTASection from '../components/CTASection.astro';
-import { SITE, FREEDOM_STEPS } from '../data/site';
+import { SITE, FREEDOM_DOMAINS, FREEDOM_METHODOLOGY } from '../data/site';
 
-const title = 'The F.R.E.E.D.O.M. Framework — Engine Behind Rev OS | Metric Mentor Labs';
-const description = 'The F.R.E.E.D.O.M. Framework is the seven-step backbone of the Rev OS: Filter, Relate, Educate, Empower, Define, Optimize, Maximize. Bridge the gap between ambition and achievement.';
+const title = 'The F.R.E.E.D.O.M. Framework — 7-Domain Diagnostic | Metric Mentor Labs';
+const description = 'F.R.E.E.D.O.M. is the engine behind the Rev OS. Seven domains we score and install: Financial Foundations, Revenue Systems, Execution Engine, Employee & Team Excellence, Data & Decisions, Operations & Optimization, and Marketing & Market Position.';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -16,20 +16,28 @@ const faqSchema = {
       name: 'What is the F.R.E.E.D.O.M. Framework?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'The F.R.E.E.D.O.M. Framework is the engine behind the Rev OS. It is a seven-step business operating discipline — Filter, Relate, Educate, Empower, Define, Optimize, Maximize — that helps founders move from ambition to repeatable execution.',
+        text: 'The F.R.E.E.D.O.M. Framework is Metric Mentor Labs\' proprietary methodology — a 7-domain diagnostic that scores a business across Financial Foundations, Revenue Systems, Execution Engine, Employee & Team Excellence, Data & Decisions, Operations & Optimization, and Marketing & Market Position. The lowest-scoring domain is the highest-leverage fix point.',
       },
     },
-    ...FREEDOM_STEPS.map((step) => ({
+    ...FREEDOM_DOMAINS.map((d) => ({
       '@type': 'Question',
-      name: `What does "${step.word}" mean in the F.R.E.E.D.O.M. Framework?`,
-      acceptedAnswer: { '@type': 'Answer', text: step.description },
+      name: `What does ${d.word} mean in the F.R.E.E.D.O.M. Framework?`,
+      acceptedAnswer: { '@type': 'Answer', text: `${d.headline} What good looks like: ${d.goodLooksLike}` },
     })),
     {
       '@type': 'Question',
-      name: 'How is F.R.E.E.D.O.M. different from EOS, Scaling Up, or other operating systems?',
+      name: 'How is F.R.E.E.D.O.M. different from EOS / Traction?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'F.R.E.E.D.O.M. focuses specifically on the revenue playbooks layer of operations — the system that turns strategic decisions into weekly execution rhythms, with profit-per-acquisition as the decision-making lens. It works alongside or instead of broader operating systems by giving founders a revenue-first decision discipline.',
+        text: 'EOS Implementers install Traction\'s framework focused primarily on meeting cadence and accountability rhythm. The F.R.E.E.D.O.M. Framework is broader — it covers seven domains end-to-end with installed dashboards, playbooks, scorecards, and SOPs, not just meeting structures. Financial Foundations is scored first because no later domain can be optimized if the financial picture is unclear.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How does the diagnostic work?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The free FREEDOM Diagnostic is 24 questions, takes 10–15 minutes, and produces a score across all seven domains plus a prioritized fix list. Every Metric Mentor Labs engagement starts here — even paid clients run the diagnostic first because the lowest-scoring domain determines where the engagement focuses.',
       },
     },
   ],
@@ -38,9 +46,9 @@ const faqSchema = {
 const howToSchema = {
   '@context': 'https://schema.org',
   '@type': 'HowTo',
-  name: 'How to apply the F.R.E.E.D.O.M. Framework in your business',
-  description: 'A seven-step operating discipline for founder-led businesses ready to scale revenue with structure.',
-  step: FREEDOM_STEPS.map((s, i) => ({
+  name: 'How to apply the F.R.E.E.D.O.M. methodology in your business',
+  description: 'A seven-step engagement methodology that runs alongside the seven-domain diagnostic.',
+  step: FREEDOM_METHODOLOGY.map((s, i) => ({
     '@type': 'HowToStep',
     position: i + 1,
     name: s.word,
@@ -60,6 +68,22 @@ const breadcrumbSchema = {
 
 <Layout title={title} description={description} schemas={[faqSchema, howToSchema, breadcrumbSchema]}>
   <div class="pt-32"></div>
-  <FrameworkSection />
+  <FrameworkSection showMethodology={true} />
+
+  <!-- Diagnostic CTA inline -->
+  <section class="px-6 md:px-12 py-12 max-w-4xl mx-auto text-center">
+    <h2 class="text-3xl md:text-4xl font-display text-foreground mb-4">Run the diagnostic.</h2>
+    <p class="font-body text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
+      24 questions. A score across all seven domains. The one constraint costing you the most revenue right now &mdash;
+      with the prioritized path to fix it.
+    </p>
+    <a
+      href={SITE.diagnosticUrl}
+      class="inline-block gradient-accent text-primary-foreground font-body text-base font-semibold tracking-wider uppercase px-12 py-5 rounded-sm glow-accent hover:opacity-90 transition-opacity"
+    >
+      Take the FREEDOM Diagnostic
+    </a>
+  </section>
+
   <CTASection />
 </Layout>

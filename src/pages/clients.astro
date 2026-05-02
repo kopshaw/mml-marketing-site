@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ClientsSection from '../components/ClientsSection.astro';
+import CTASection from '../components/CTASection.astro';
+import { SITE, CASE_STUDIES } from '../data/site';
+
+const title = 'Anchor Clients & Engagements | Metric Mentor Labs';
+const description = 'Where Metric Mentor Labs has installed the Rev OS — California Wealth Transitions ($1B+ AUM), Impact X Performance San Diego (Todd Durkin), Nutritional Coaching Institute, This Naked Mind. Industry-agnostic by design.';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Clients', item: `${SITE.url}/clients` },
+  ],
+};
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: CASE_STUDIES.map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Organization',
+      name: c.client,
+      industry: c.industry,
+    },
+  })),
+};
+---
+
+<Layout title={title} description={description} schemas={[breadcrumbSchema, itemListSchema]}>
+  <div class="pt-32"></div>
+  <ClientsSection />
+  <CTASection />
+</Layout>

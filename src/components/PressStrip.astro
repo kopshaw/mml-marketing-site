@@ -1,0 +1,23 @@
+---
+// "As Featured In" strip — text-only until logos arrive.
+// Per doc: ALWAYS frame as "As Featured In" or "As Seen In", never "interviewed by."
+import { PRESS_OUTLETS } from '../data/site';
+---
+
+<section class="border-y border-border/30 bg-background/50 py-8">
+  <div class="max-w-6xl mx-auto px-6">
+    <p class="text-center font-body text-[10px] tracking-[0.3em] text-muted-foreground uppercase mb-5">
+      As Featured In
+    </p>
+    <div class="flex flex-wrap items-center justify-center gap-x-6 md:gap-x-10 gap-y-3">
+      {PRESS_OUTLETS.map((outlet) => (
+        <span class="font-display text-sm md:text-base tracking-widest text-foreground/70">
+          {outlet}
+        </span>
+      ))}
+    </div>
+    <p class="text-center font-body text-[10px] text-muted-foreground/60 mt-5 italic">
+      200+ outlets via the 2023 Conscious Wealth Summit keynote (Expert Channel TV).
+    </p>
+  </div>
+</section>
