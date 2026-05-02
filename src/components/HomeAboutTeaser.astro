@@ -1,0 +1,47 @@
+---
+// Compact about teaser for the homepage — tight 2-paragraph block + stat row.
+// Full bio + credentials live on /about.
+import aboutBg from '../assets/about-bg.jpg';
+import { SITE } from '../data/site';
+---
+
+<section id="about" class="section-padding">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid lg:grid-cols-5 gap-10 lg:gap-16 items-center">
+      <div class="lg:col-span-2">
+        <img
+          src={aboutBg.src}
+          alt="Steve Kopshaw — founder of Metric Mentor Labs"
+          class="w-full aspect-[4/5] object-cover object-top rounded-sm"
+          style="mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 50%, transparent 100%); -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 50%, transparent 100%);"
+        />
+      </div>
+
+      <div class="lg:col-span-3">
+        <p class="font-body text-sm tracking-[0.3em] text-primary uppercase mb-3">Operator. Engineer. Installer.</p>
+        <h2 class="text-4xl md:text-5xl font-display text-foreground mb-3">
+          Steve Kopshaw
+        </h2>
+        <p class="font-body text-sm italic text-accent mb-6">{SITE.identityLine}</p>
+
+        <div class="space-y-4 font-body text-muted-foreground leading-relaxed mb-8">
+          <p>
+            20+ years operating businesses on the floor &mdash; not in a boardroom.
+            17 locations across 6 states. $300M+ in revenue generated.
+            $50M+ exit trajectory at NCI as COO and VP Growth. ClickFunnels Two Comma Club.
+            Mentored through Acquisition.com.
+          </p>
+          <p>
+            Most consultants teach systems. Metric Mentor Labs installs them.
+            The output of every engagement is documented playbooks, role scorecards,
+            dashboards, and operating rhythms inside your business &mdash; not a slide deck.
+          </p>
+        </div>
+
+        <a href="/about" class="inline-block font-body text-sm tracking-wider uppercase text-accent hover:text-primary transition-colors">
+          Read the full story &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

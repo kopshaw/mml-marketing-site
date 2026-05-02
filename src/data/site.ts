@@ -73,16 +73,54 @@ export const SPEAKING = {
   ],
 } as const;
 
-// Site navigation — public-facing top nav.
+// Top nav — intentionally minimal. Deep content lives in the footer + body links
+// + sitemap.xml so search engines and AI crawlers can find everything. Visitors
+// see a clean 3-item nav + a single primary CTA.
 export const NAV = [
-  { label: 'About',      href: '/about' },
-  { label: 'Framework',  href: '/framework' },
-  { label: 'Services',   href: '/services' },
-  { label: 'Clients',    href: '/clients' },
-  { label: 'Resources',  href: '/resources' },
-  { label: 'FAQ',        href: '/faq' },
-  { label: 'Speaking',   href: '/speaking' },
-  { label: 'Contact',    href: '/contact' },
+  { label: 'About',     href: '/about' },
+  { label: 'Services',  href: '/services' },
+  { label: 'Contact',   href: '/contact' },
+] as const;
+
+// Footer site map — comprehensive. This is where crawlers and power users find
+// everything that isn't in the top nav.
+export const FOOTER_NAV = [
+  {
+    heading: 'About',
+    links: [
+      { label: 'About Steve',          href: '/about' },
+      { label: 'Speaking',             href: '/speaking' },
+      { label: 'Clients',              href: '/clients' },
+      { label: 'Podcast',              href: '/podcast' },
+    ],
+  },
+  {
+    heading: 'Work With Us',
+    links: [
+      { label: 'Service Ladder',       href: '/services' },
+      { label: 'FREEDOM Diagnostic',   href: 'https://preview--mmldiagnostic.lovable.app/' },
+      { label: 'MML Toolbox · $97/mo', href: '/services/mml-toolbox' },
+      { label: 'Rev OS Installation',  href: '/services/rev-os-installation' },
+      { label: 'Fractional Leadership',href: '/services/fractional-growth-leadership' },
+    ],
+  },
+  {
+    heading: 'Resources',
+    links: [
+      { label: 'The Framework',        href: '/framework' },
+      { label: 'Resources & Articles', href: '/resources' },
+      { label: 'FAQ',                  href: '/faq' },
+      { label: 'Blog',                 href: '/blog' },
+    ],
+  },
+  {
+    heading: 'Connect',
+    links: [
+      { label: 'Contact',              href: '/contact' },
+      { label: 'Links',                href: '/links' },
+      { label: 'Email',                href: 'mailto:hello@metricmentorlabs.com' },
+    ],
+  },
 ] as const;
 
 // Service ladder per doc Section 4. Order = ascending price/commitment.

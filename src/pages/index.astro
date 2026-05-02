@@ -1,16 +1,19 @@
 ---
+// Homepage — intentionally lean. Hero → press → about teaser → services teaser
+// → framework teaser → CTA. Everything else (resources, FAQ, clients, podcast,
+// blog) lives at its own URL, accessible via footer + body links + sitemap.
+//
+// Schema is still comprehensive: Person, OfferCatalog, FAQPage, plus the base
+// Organization + WebSite from Layout. Crawlers see all 35 pages via sitemap.
+
 import Layout from '../layouts/Layout.astro';
 import HeroSection from '../components/HeroSection.astro';
 import PressStrip from '../components/PressStrip.astro';
-import PainsSection from '../components/PainsSection.astro';
-import AboutSection from '../components/AboutSection.astro';
-import ServicesSection from '../components/ServicesSection.astro';
-import FrameworkSection from '../components/FrameworkSection.astro';
-import ClientsSection from '../components/ClientsSection.astro';
-import PodcastSection from '../components/PodcastSection.astro';
+import HomeAboutTeaser from '../components/HomeAboutTeaser.astro';
+import HomeServicesTeaser from '../components/HomeServicesTeaser.astro';
+import HomeFrameworkTeaser from '../components/HomeFrameworkTeaser.astro';
 import CTASection from '../components/CTASection.astro';
-import ContactSection from '../components/ContactSection.astro';
-import { SITE, SERVICES, FREEDOM_DOMAINS } from '../data/site';
+import { SITE, SERVICES } from '../data/site';
 
 const title = 'Rev OS Installation for $500K–$25M Operators | Metric Mentor Labs';
 const description = 'Metric Mentor Labs installs the Rev OS — the Revenue Playbooks Operating System — into businesses doing $500K to $25M. Documented playbooks, dashboards, and operating rhythms that make the founder less necessary, not more. revenue. by. design.';
@@ -69,14 +72,6 @@ const faqSchema = {
     },
     {
       '@type': 'Question',
-      name: 'What is the F.R.E.E.D.O.M. Framework?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'The F.R.E.E.D.O.M. Framework is the proprietary methodology behind every Metric Mentor Labs engagement. It scores a business across seven domains — Financial Foundations, Revenue Systems, Execution Engine, Employee & Team Excellence, Data & Decisions, Operations & Optimization, and Marketing & Market Position — and uses the lowest-scoring domain as the highest-leverage fix point.',
-      },
-    },
-    {
-      '@type': 'Question',
       name: 'Who is Metric Mentor Labs for?',
       acceptedAnswer: {
         '@type': 'Answer',
@@ -91,14 +86,6 @@ const faqSchema = {
         text: 'The FREEDOM Diagnostic is free. The MML Toolbox is $97/month. RISE CRM is $97/month. Social Growth Bot is $247/month. Quarterly Advisory is $2,000/month. Rev OS Installation is custom and project-based. Fractional Growth Leadership typically ranges from $2,000 to $15,000+ per month depending on scope.',
       },
     },
-    {
-      '@type': 'Question',
-      name: 'How is Metric Mentor Labs different from a business coach or EOS Implementer?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Coaches sell motivation and accountability calls; MML installs infrastructure. EOS Implementers install Traction\'s framework focused on meeting cadence; MML\'s F.R.E.E.D.O.M. Framework covers seven domains end-to-end with installed dashboards, playbooks, and SOPs — not just meeting structures. The objective of every MML engagement is to make the founder less necessary, not more.',
-      },
-    },
   ],
 };
 ---
@@ -106,12 +93,8 @@ const faqSchema = {
 <Layout title={title} description={description} schemas={[personSchema, serviceCatalogSchema, faqSchema]}>
   <HeroSection />
   <PressStrip />
-  <PainsSection limit={9} />
-  <AboutSection />
-  <ServicesSection />
-  <FrameworkSection />
-  <ClientsSection />
-  <PodcastSection />
+  <HomeAboutTeaser />
+  <HomeServicesTeaser />
+  <HomeFrameworkTeaser />
   <CTASection />
-  <ContactSection />
 </Layout>

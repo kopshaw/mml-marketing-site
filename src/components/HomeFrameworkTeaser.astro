@@ -1,0 +1,40 @@
+---
+// Compact framework block — names the 7 domains, links to /framework for depth.
+import { FREEDOM_DOMAINS } from '../data/site';
+import lionEmblem from '../assets/lion-emblem.png';
+---
+
+<section class="relative section-padding overflow-hidden">
+  <img
+    src={lionEmblem.src}
+    alt=""
+    aria-hidden="true"
+    class="absolute right-[-100px] top-1/2 -translate-y-1/2 w-[500px] opacity-[0.05] pointer-events-none select-none"
+  />
+
+  <div class="max-w-5xl mx-auto relative z-10 text-center">
+    <p class="font-body text-sm tracking-[0.3em] text-primary uppercase mb-3">The Engine</p>
+    <h2 class="text-4xl md:text-5xl font-display text-foreground mb-3">
+      The <span class="font-accent text-5xl md:text-6xl gradient-text">F.R.E.E.D.O.M.</span> Framework
+    </h2>
+    <p class="font-body text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
+      Seven domains we score, seven leverage points we install. The lowest-scoring
+      domain is the highest-leverage fix.
+    </p>
+
+    <div class="grid grid-cols-2 md:grid-cols-7 gap-2 mb-10 max-w-4xl mx-auto">
+      {FREEDOM_DOMAINS.map((d) => (
+        <div class="bg-card border border-border rounded-sm p-4 hover:border-primary/40 transition-colors">
+          <div class="w-10 h-10 gradient-accent rounded-sm flex items-center justify-center mx-auto mb-2">
+            <span class="font-accent text-2xl text-primary-foreground">{d.letter}</span>
+          </div>
+          <p class="font-body text-[11px] tracking-wider uppercase text-foreground/70 leading-tight">{d.word}</p>
+        </div>
+      ))}
+    </div>
+
+    <a href="/framework" class="inline-block font-body text-sm tracking-wider uppercase text-accent hover:text-primary transition-colors">
+      How the framework works &rarr;
+    </a>
+  </div>
+</section>

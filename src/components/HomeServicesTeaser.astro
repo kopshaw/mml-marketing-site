@@ -1,0 +1,50 @@
+---
+// Homepage services block — features just the 3 most important tiers (Diagnostic,
+// Toolbox, Rev OS Installation). Full 7-tier ladder lives at /services.
+import { SERVICES, SITE } from '../data/site';
+import { Compass, Wrench, Settings } from 'lucide-react';
+
+const featured = [
+  SERVICES.find((s) => s.slug === 'freedom-diagnostic')!,
+  SERVICES.find((s) => s.slug === 'mml-toolbox')!,
+  SERVICES.find((s) => s.slug === 'rev-os-installation')!,
+];
+const ICONS = { 'freedom-diagnostic': Compass, 'mml-toolbox': Wrench, 'rev-os-installation': Settings } as const;
+---
+
+<section class="section-padding bg-background">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="font-body text-sm tracking-[0.3em] text-primary uppercase mb-3">What We Do</p>
+      <h2 class="text-4xl md:text-5xl font-display text-foreground mb-4">
+        Install the <span class="font-accent text-5xl md:text-6xl gradient-text">Rev OS</span>.
+      </h2>
+      <p class="font-body text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+        Three places to start. Free diagnostic, self-service tools, full installation.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5 mb-10">
+      {featured.map((service) => {
+        const Icon = ICONS[service.slug as keyof typeof ICONS];
+        return (
+          <a href={`/services/${service.slug}`} class="group block bg-card border border-border rounded-sm p-7 hover:border-primary/50 transition-all duration-300">
+            <div class="flex items-start justify-between mb-5">
+              <Icon className="w-9 h-9 text-primary group-hover:scale-110 transition-transform" />
+              <span class="font-body text-sm font-semibold text-foreground/90">{service.price}</span>
+            </div>
+            <h3 class="text-xl font-display text-foreground mb-2">{service.title}</h3>
+            <p class="font-body text-sm text-muted-foreground leading-relaxed mb-4">{service.short}</p>
+            <p class="font-body text-xs tracking-wider uppercase text-primary group-hover:text-accent transition-colors">Learn more &rarr;</p>
+          </a>
+        );
+      })}
+    </div>
+
+    <p class="text-center">
+      <a href="/services" class="inline-block font-body text-sm tracking-wider uppercase text-accent hover:text-primary transition-colors">
+        See the full service ladder &rarr;
+      </a>
+    </p>
+  </div>
+</section>
