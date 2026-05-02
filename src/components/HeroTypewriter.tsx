@@ -31,11 +31,11 @@ export default function HeroTypewriter() {
         } while (n === prev);
         return n;
       });
-    }, 5000);
+    }, 7000); // dwell time on each finished headline before swapping
     return () => clearInterval(next);
   }, []);
 
-  // Type out the current headline
+  // Type out the current headline (90ms/char ≈ confident, deliberate cadence)
   useEffect(() => {
     setDone(false);
     setText('');
@@ -48,7 +48,7 @@ export default function HeroTypewriter() {
         clearInterval(id);
         setDone(true);
       }
-    }, 45);
+    }, 90);
     return () => clearInterval(id);
   }, [current]);
 
